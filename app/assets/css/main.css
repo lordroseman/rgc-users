@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+html {
+    font-size: 14px;
+}
+
+.p-datatable-column-header-content {
+    height: 21px;
+}
