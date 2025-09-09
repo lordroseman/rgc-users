@@ -1,5 +1,5 @@
 <script setup lang="ts"> 
-navigateTo('/materials')
+navigateTo('/users')
 </script>
 
 <template> 

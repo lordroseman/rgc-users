@@ -3,52 +3,13 @@ import type { MenuItem } from "@/types/menu";
 
 // Static sidebar menu structure; group items can contain nested children
 const items = ref<MenuItem[]>([
-  { label: "HRIS", type: "subtitle" },
+  { label: "IAM", type: "subtitle" },
   {
-    label: "Employees",
-    to: "/employees",
+    label: "Users",
+    to: "/users",
     icon: "ic:baseline-groups",
   },
-  {
-    label: "Holidays",
-    to: "/holidays",
-    icon: "clarity:calendar-solid",
-  },
-  {
-    label: "Leave Management",
-    to: "/employeeleaves",
-    icon: "clarity:employee-solid",
-  },
-  {
-    label: "Attendance",
-    icon: "ic:round-schedule",
-    open: false,
-    items: [
-      {
-        label: "Discrepancies",
-        to: "/attendance/discrepancies",
-        icon: "ic:baseline-report-problem",
-      },
-    ],
-  },
-  { label: "Payroll", type: "subtitle" },
-
-  { label: "Masterfile", type: "subtitle" },
-  {
-    label: "Companies & Branches",
-    to: "/companies",
-    icon: "ic:baseline-business",
-  },
-  {
-    label: "Designations",
-    to: "/designations",
-    icon: "ic:baseline-badge",
-  },
-  {
-    label: "Shifts",
-    to: "/shifts",
-    icon: "ic:baseline-access-time",
-  },
+ 
 ]);
 
 const route = useRoute();

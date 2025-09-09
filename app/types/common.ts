@@ -22,7 +22,7 @@ export type PaginationRequestParam = {
         size: number;
     },
     filter : {
-        [key:string] : string | boolean | number
+        [key:string] : string | boolean | number | null
     },
     sort: string
 }  

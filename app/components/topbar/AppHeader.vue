@@ -45,7 +45,7 @@ const appStore = useAppStore();
           <!-- Logo -->
           <a href="#" class="flex items-center justify-between mr-4">
             <ApplicationLogoMini class="w-auto h-8 mr-4" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"> APP NAME</span>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"> IAM - USERS</span>
           </a> 
         </div>
 </template>

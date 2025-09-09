@@ -12,7 +12,7 @@ export default defineNuxtConfig({
       key: fs.readFileSync('C:/laragon/etc/ssl/laragon.key', 'utf-8'),
       cert: fs.readFileSync('C:/laragon/etc/ssl/laragon.crt', 'utf-8'),
     },
-    host: 'warehouse.ribshack.test',
+    host: 'rgc-users.ribshack.test',
     port: 3000,
   },
   css: ['~/assets/css/main.css', 'primeicons/primeicons.css'],
@@ -49,8 +49,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       loginUrl: process.env.LOGIN_URL || 'https://login.ribshack.test',
-      iamApiUrl: process.env.IAM_API_URL || 'https://iam.ribshack.test', 
-      warehouseApiUrl: process.env.WAREHOUSE_API_URL,
+      iamApiUrl: process.env.IAM_API_URL || 'https://iam.ribshack.test',  
       sessionDomain: process.env.SESSION_DOMAIN,
       oauthClientId: process.env.OAUTH_CLIENT_ID,
       passport: {
