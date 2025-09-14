@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Loading…</title>
+		<style>
+			:root {
+				--bg: #0f172a;          /* slate-900 */
+				--fg: #e2e8f0;          /* slate-200 */
+				--subtle: #cbd5e1;      /* slate-300 */
+				--brand: #22c55e;       /* green-500 */
+			}
+ 
+
+			html, body {
+				height: 100%;
+				margin: 0;
+                font-size: 14px;
+				background: var(--bg);
+				color: var(--fg);
+				font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+			}
+
+			.container {
+				/* min-height: 100%; */
+				/* display: grid;
+				place-items: center; */
+				padding: 24px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+			}
+
+			.card {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 16px;
+				text-align: center;
+			}
+
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-weight: 700;
+				letter-spacing: 0.2px;
+			}
+
+			.brand-dot {
+				width: 12px;
+				height: 12px;
+				border-radius: 9999px;
+				background: var(--brand);
+				box-shadow: 0 0 24px var(--brand);
+			}
+
+			.subtle { color: var(--subtle); }
+
+			.spinner {
+				width: 48px;
+				height: 48px;
+			}
+
+			.sr-only {
+				position: absolute;
+				width: 1px;
+				height: 1px;
+				padding: 0;
+				margin: -1px;
+				overflow: hidden;
+				clip: rect(0, 0, 0, 0);
+				border: 0;
+				white-space: nowrap;
+			}
+
+			/* Spinner track and arc */
+			.spinner .track { fill: none; stroke: currentColor; stroke-opacity: .2; stroke-width: 6; }
+			.spinner .arc { fill: none; stroke: var(--brand); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 90 200; stroke-dashoffset: 0; }
+
+			@keyframes spin { to { transform: rotate(360deg); } }
+			.spin { animation: spin 1s linear infinite; transform-origin: 50% 50%; transform-box: fill-box; }
+			@media (prefers-reduced-motion: reduce) {
+				.spin { animation: none; }
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="card" role="status" aria-live="polite" aria-busy="true">
+				<div class="brand" aria-hidden="true">
+					<span class="brand-dot"></span>
+					<span>Loading Application</span>
+				</div>
+						<svg class="spinner" viewBox="0 0 50 50" aria-hidden="true">
+							<circle class="track" cx="25" cy="25" r="21" />
+							<circle class="arc spin" cx="25" cy="25" r="21" />
+				</svg>
+				<div class="subtle">Please wait while we get things ready…</div>
+				<span class="sr-only">Loading</span>
+			</div>
+		</div>
+
+		<noscript>
+			<style>.spinner { display: none; }</style>
+			<div style="text-align:center;margin-top:1rem;color:var(--subtle)">
+				JavaScript is required to run this application.
+			</div>
+		</noscript>
+	</body>
+	</html>
+

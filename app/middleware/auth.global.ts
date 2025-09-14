@@ -22,4 +22,14 @@ export default  defineNuxtRouteMiddleware(async (to) => {
   if(!auth.user) {
     await auth.fetchUser()
   }
+
+  // Skip permission check for auth routes and forbidden page itself
+  const skipPaths = ['/auth/callback/passport', '/forbidden']
+  if (skipPaths.includes(to.path)) return
+
+  // Permission gate: require iam:* to access the app
+  const { can } = useCan()
+  if (!can('iam:*')) {
+    return navigateTo('/forbidden')
+  }
 })

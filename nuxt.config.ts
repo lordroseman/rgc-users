@@ -5,6 +5,9 @@ import fs from 'fs'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
+  nitro: {
+    preset: 'static'
+  },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
   devServer: {
@@ -29,7 +32,7 @@ export default defineNuxtConfig({
   },
   primevue: {
     components: {
-      exclude: ['Form', 'FormField']
+       exclude: ['Editor', 'Chart']
     },
     options: {
       theme: {

@@ -15,9 +15,9 @@ export function useCan() {
         const permission = authStore.user!.permissions ?? [];
 
         if(p.includes('*')) {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const [resource, action] = p.split('.')
-            return permission.some((perm: string) => perm.startsWith(resource!))
+            const wildcardIndex = p.indexOf('*')
+            const prefix = p.substring(0, wildcardIndex)
+            return permission.some((perm: string) => perm.startsWith(prefix))
         }
 
         return permission.includes(p)
