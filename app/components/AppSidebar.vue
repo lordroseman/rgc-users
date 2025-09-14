@@ -9,6 +9,16 @@ const items = ref<MenuItem[]>([
     to: "/users",
     icon: "ic:baseline-groups",
   },
+  {
+    label: "Permissions",
+    to: "/permissions",
+    icon: "ic:baseline-lock",
+  },
+  {
+    label: "Roles",
+    to: "/roles",
+    icon: "ic:baseline-security",
+  },
  
 ]);
 

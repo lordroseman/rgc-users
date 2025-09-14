@@ -17,12 +17,14 @@ type UserFilters = {
   q: DataTableFilterMetaData;
   id_num: DataTableFilterMetaData;
   name: DataTableFilterMetaData;   
+  roles: DataTableFilterMetaData;
 };
 
 const filters = ref<UserFilters>({
   q: { value: null, matchMode: FilterMatchMode.CONTAINS },
   id_num: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   name: { value: null, matchMode: FilterMatchMode.CONTAINS }, 
+  roles: { value: null, matchMode: FilterMatchMode.EQUALS },
 });
 
 const emit = defineEmits(["openModal", "delete"]);
@@ -183,11 +185,11 @@ defineExpose({
   <div class="card">
     <DataTable
       ref="dt"
+      v-model:filters="filters"
       :value="users"
       data-key="id"
       :paginator="true"
       :rows="10"
-      :filters="filters"
       :rows-per-page-options="[5, 10, 25]"
       :total-records="pagination.total"
       :global-filter-fields="['q']"
@@ -256,11 +258,16 @@ defineExpose({
             <Skeleton/>
           </template>
         </Column>
-        <Column field="roles" header="Role" :sortable="false"  :show-filter-match-modes="false" style="min-width: 12rem">
+        <Column field="roles" header="Role" :sortable="false" show-filter-menu  :show-filter-match-modes="false" style="min-width: 12rem">
           <template #body="{data}">
             <Skeleton  v-if="loading"/>
             <span v-else>{{ data.roles.map((role: any) => role).join(', ') }}</span>
           </template>
+
+                  <template #filter="{ filterModel }">
+            <InputText v-model="filterModel.value" type="text" placeholder="Search by role" />
+        </template>
+
 
         </Column>
 
