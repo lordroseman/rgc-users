@@ -26,7 +26,8 @@ export const usePermissionStore = defineStore('permission', () => {
     submitting.value = true;
     const response = await create(payload as Permission);
     if (response.success) {
-      permissions.value.unshift(response.data); 
+      const data = response.data as unknown as  Permission[];
+      permissions.value.unshift(...data); 
       toast.add({ severity: 'success', summary: 'Success', detail: 'Permission created successfully', life: 3000 });
     } else {
       toast.add({ severity: 'error', summary: 'Error', detail: 'Failed to create permission', life: 3000 });
