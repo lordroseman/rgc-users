@@ -7,3 +7,19 @@ html {
 .p-datatable-column-header-content {
     height: 21px;
 }
+
+@theme {
+  /* Reusable animation token for Tailwind v4 */
+  --animate-shine: shine 2s linear infinite;
+  @keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+/* Utility for shimmer/shine sweep across an element */
+@layer utilities {
+  .animate-shine {
+    animation: var(--animate-shine);
+  }
+}

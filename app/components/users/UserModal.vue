@@ -16,7 +16,7 @@ const show = computed({
   set: (value) => emit("update:modelValue", value),
 });
 
-const form = ref<User>({ 
+const form = ref<User>({
   id: 0,
   id_num: "",
   name: "",
@@ -35,7 +35,7 @@ watch(show, (val) => {
         name: props.user.name,
         email: props.user.email,
         username: props.user.username,
-        roles: props.user.roles, 
+        roles: props.user.roles,
         password: ''
       };
     } else {
@@ -45,11 +45,11 @@ watch(show, (val) => {
     backendError.value = undefined;
   }
 });
-    
+
 const resolver = ref(zodResolver(UserSchema));
 const loading = ref(false);
 const backendError = ref<Record<keyof User, string[]>>();
- 
+
 const userStore = useUserStore();
 const roleStore = useRoleStore();
 const toast = useToast();
@@ -66,7 +66,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
 
   const values = e.values as User;
   const api = useCrudApi<User>(`/api/users`);
- 
+
 
   let res;
 
@@ -78,7 +78,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
       );
       res = await api.update(props.user.id, changes);
     } else {
-      res = await api.create(values); 
+      res = await api.create(values);
     }
   } catch (error) {
 
@@ -96,7 +96,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
     });
     return;
   }
-  
+
 
   loading.value = false;
   if (!res.success) {
@@ -137,10 +137,8 @@ const onSubmit = async (e: FormSubmitEvent) => {
       class="flex flex-col gap-4"
       @submit="onSubmit"
     >
-
-  <!-- include id in submitted values so schema knows this is an update -->
-  <input type="hidden" name="id" :value="form.id" >
-
+      <!-- include id in submitted values so schema knows this is an update -->
+      <input type="hidden" name="id" :value="form.id" >
 
       <div class="flex flex-col gap-1">
         <label for="id_num">Employee ID Number</label>
@@ -180,7 +178,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
 
       <div v-if="!props.user" class="flex flex-col gap-1">
         <label for="password">Password</label>
-        <Password  name="password" type="password" fluid toggle-mask :feedback="false" />
+        <Password name="password" type="password" fluid toggle-mask :feedback="false" />
         <FieldError
           v-if="$form.password"
           :message="$form.password.error?.message || backendError?.password"
@@ -195,7 +193,6 @@ const onSubmit = async (e: FormSubmitEvent) => {
           option-label="name"
           option-value="name"
           placeholder="Select roles"
-          :selection-limit="1"
           show-clear
           filter
           class="w-full"

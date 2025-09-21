@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import type { User } from "~/types/user";
 import { FilterMatchMode } from "@primevue/core/api";
-import type { DataTableFilterEvent, DataTableFilterMetaData, DataTablePageEvent,  DataTableSortEvent } from "primevue";
+import type {
+  DataTableFilterEvent,
+  DataTableFilterMetaData,
+  DataTablePageEvent,
+  DataTableSortEvent,
+} from "primevue";
 import type { PaginationRequestParam } from "~/types/common";
 import { useDebounceFn } from "@vueuse/core";
 
@@ -16,14 +21,14 @@ onMounted(() => {
 type UserFilters = {
   q: DataTableFilterMetaData;
   id_num: DataTableFilterMetaData;
-  name: DataTableFilterMetaData;   
+  name: DataTableFilterMetaData;
   roles: DataTableFilterMetaData;
 };
 
 const filters = ref<UserFilters>({
   q: { value: null, matchMode: FilterMatchMode.CONTAINS },
   id_num: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-  name: { value: null, matchMode: FilterMatchMode.CONTAINS }, 
+  name: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roles: { value: null, matchMode: FilterMatchMode.EQUALS },
 });
 
@@ -34,13 +39,13 @@ const params = ref<PaginationRequestParam>({
     number: 1,
     size: 10,
   },
-  filter: { },
+  filter: {},
   sort: "id_num",
 });
 
 const hasFilters = computed(() => {
   const f = filters.value;
-  return !!f.name.value  ;
+  return !!f.name.value;
 });
 
 const clearFilters = () => {
@@ -48,7 +53,6 @@ const clearFilters = () => {
   filters.value.name.value = null;
   filters.value.id_num.value = null;
 };
-
 
 watch(
   () => filters.value.q.value,
@@ -71,13 +75,9 @@ watch(
   { deep: true }
 );
 
-
-
- 
-
 const openCreate = () => {
   emit("openModal");
-}; 
+};
 
 const { can } = useCan();
 const menu = useTemplateRef("menu");
@@ -124,17 +124,13 @@ const menuItems = computed(() => {
       items,
     },
   ];
-
-
-  
 });
-
 
 const onPage = async (event: DataTablePageEvent) => {
   params.value.page.number = event.page + 1;
   params.value.page.size = event.rows;
 
-  await  loadUsers();
+  await loadUsers();
 };
 
 const onSort = async (event: DataTableSortEvent) => {
@@ -146,10 +142,9 @@ const onSort = async (event: DataTableSortEvent) => {
 
 const onFilter = async (event: DataTableFilterEvent) => {
   const eFilters = event.filters as UserFilters;
-console.log(event);
+  console.log(event);
   for (const k in eFilters) {
     const key = k as keyof UserFilters;
-    
 
     if (eFilters[key].value === null || eFilters[key].value === "") {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
@@ -165,10 +160,6 @@ console.log(event);
   await loadUsers();
 };
 
- 
-
-
-
 const loadUsers = useDebounceFn(async () => {
   loading.value = true;
   await userStore.fetchUsers(params.value);
@@ -178,7 +169,6 @@ const loadUsers = useDebounceFn(async () => {
 defineExpose({
   loadUsers,
 });
-
 </script>
 
 <template>
@@ -200,7 +190,7 @@ defineExpose({
       selection-mode="single"
       @page="onPage($event)"
       @sort="onSort($event)"
-      @filter="onFilter($event)" 
+      @filter="onFilter($event)"
     >
       <template #header>
         <div class="flex justify-between gap-4">
@@ -208,7 +198,7 @@ defineExpose({
             <InputIcon>
               <i class="pi pi-search" />
             </InputIcon>
-             <InputText v-model="filters.q.value" class="w-full" placeholder="Search..." />
+            <InputText v-model="filters.q.value" class="w-full" placeholder="Search..." />
           </IconField>
 
           <div class="flex-shrink-0 flex gap-4">
@@ -237,41 +227,51 @@ defineExpose({
           <span v-else>No users found</span>
         </div>
       </template>
-        <Column field="id_num" header="Employee ID #" sortable style="min-width: 12rem">
-          <template v-if="loading" #body>
-            <Skeleton/>
-          </template>
-        </Column>
+      <Column field="id_num" header="Employee ID #" sortable style="min-width: 12rem">
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
       <Column field="name" header="Name" sortable style="min-width: 12rem">
-          <template v-if="loading" #body>
-            <Skeleton/>
-          </template>
-        </Column>
-        
-        <Column field="username" header="Username" sortable style="min-width: 12rem">
-          <template v-if="loading" #body>
-            <Skeleton/>
-          </template>
-        </Column>
-        <Column field="email" header="Email" sortable style="min-width: 12rem">
-          <template v-if="loading" #body>
-            <Skeleton/>
-          </template>
-        </Column>
-        <Column field="roles" header="Role" :sortable="false" show-filter-menu  :show-filter-match-modes="false" style="min-width: 12rem">
-          <template #body="{data}">
-            <Skeleton  v-if="loading"/>
-            <span v-else>{{ data.roles.map((role: any) => role).join(', ') }}</span>
-          </template>
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
 
-                  <template #filter="{ filterModel }">
-            <InputText v-model="filterModel.value" type="text" placeholder="Search by role" />
+      <Column field="username" header="Username" sortable style="min-width: 12rem">
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
+      <Column field="email" header="Email" sortable style="min-width: 12rem">
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
+      <Column
+        field="roles"
+        header="Role"
+        :sortable="false"
+        show-filter-menu
+        :show-filter-match-modes="false"
+        style="min-width: 12rem"
+      >
+        <template #body="{ data }">
+          <Skeleton v-if="loading" />
+          <div v-else class="flex flex-wrap gap-1">
+            <RolePill v-for="role in data.roles" :key="role" :role="role" />
+          </div>
         </template>
 
+        <template #filter="{ filterModel }">
+          <InputText
+            v-model="filterModel.value"
+            type="text"
+            placeholder="Search by role"
+          />
+        </template>
+      </Column>
 
-        </Column>
-
-      
       <Column
         header-style="width: 8rem"
         body-style="text-align:right"
@@ -290,8 +290,6 @@ defineExpose({
         </template>
       </Column>
     </DataTable>
-
-
 
     <Menu ref="menu" :model="menuItems" :popup="true">
       <template #item="{ item }">
