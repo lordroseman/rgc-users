@@ -10,14 +10,14 @@ export default defineNuxtConfig({
   },
   compatibilityDate: '2025-05-15',
   devtools: { enabled: false },
-  devServer: {
+  devServer:  process.env.NODE_ENV === 'development' ? {
     https: {
       key: fs.readFileSync('C:/laragon/etc/ssl/laragon.key', 'utf-8'),
       cert: fs.readFileSync('C:/laragon/etc/ssl/laragon.crt', 'utf-8'),
     },
     host: 'rgc-users.ribshack.test',
     port: 3000,
-  },
+  } : undefined,
   css: ['~/assets/css/main.css', 'primeicons/primeicons.css'],
   modules: [
     '@nuxt/eslint',

@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'PrimeIcons';
+  font-display: swap;
+  src: url('@/node_modules/primeicons/fonts/primeicons.woff2') format('woff2'),
+       url('@/node_modules/primeicons/fonts/primeicons.woff') format('woff'),
+       url('@/node_modules/primeicons/fonts/primeicons.ttf') format('truetype');
+}
+
+
 html {
     font-size: 14px;
 }
