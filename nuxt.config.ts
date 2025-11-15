@@ -1,6 +1,6 @@
-import tailwindcss from "@tailwindcss/vite";
-import Aura from '@primeuix/themes/aura';
+import tailwindcss from "@tailwindcss/vite"; 
 import fs from 'fs'
+import customPreset from "./app/theme/custom";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -31,15 +31,16 @@ export default defineNuxtConfig({
     ]
   },
   primevue: {
-    components: {
-       exclude: ['Editor', 'Chart']
-    },
     options: {
+      ripple: true,
       theme: {
-        preset: Aura
+        preset: customPreset,
+        options: {
+          darkModeSelector: '.fvck-dark-mode'
+        }
       }
     }
-  }, 
+  },
   components: [
     {
       path: '~/components',
