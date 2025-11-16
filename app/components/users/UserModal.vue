@@ -176,7 +176,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
         />
       </div>
 
-      <div v-if="!props.user" class="flex flex-col gap-1">
+      <div class="flex flex-col gap-1">
         <label for="password">Password</label>
         <Password name="password" type="password" fluid toggle-mask :feedback="false" />
         <FieldError
