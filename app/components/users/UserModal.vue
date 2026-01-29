@@ -26,6 +26,8 @@ const form = ref<User>({
   roles: [],
 });
 
+const forceChangePassword = ref(false);
+
 watch(show, (val) => {
   if (val) {
     if (props.user) {
@@ -42,6 +44,7 @@ watch(show, (val) => {
       form.value = { id: null, id_num: "", name: "", email: "", username: "",  roles: [], password: "" };
     }
 
+    forceChangePassword.value = false;
     backendError.value = undefined;
   }
 });
@@ -76,6 +79,10 @@ const onSubmit = async (e: FormSubmitEvent) => {
         values as User,
         form.value
       );
+      // Include force_change_password flag if password is being changed and checkbox is checked
+      if (changes.password && forceChangePassword.value) {
+        changes.status = "FORCE_CHANGE_PASSWORD";
+      }
       res = await api.update(props.user.id, changes);
     } else {
       res = await api.create(values);
@@ -138,7 +145,7 @@ const onSubmit = async (e: FormSubmitEvent) => {
       @submit="onSubmit"
     >
       <!-- include id in submitted values so schema knows this is an update -->
-      <input type="hidden" name="id" :value="form.id" >
+      <input type="hidden" name="id" :value="form.id" />
 
       <div class="flex flex-col gap-1">
         <label for="id_num">Employee ID Number</label>
@@ -183,6 +190,13 @@ const onSubmit = async (e: FormSubmitEvent) => {
           v-if="$form.password"
           :message="$form.password.error?.message || backendError?.password"
         />
+      </div>
+
+      <div v-if="props.user && $form.password?.value" class="flex items-center gap-2">
+        <Checkbox v-model="forceChangePassword" input-id="forceChangePassword" binary />
+        <label for="forceChangePassword" class="cursor-pointer"
+          >Force user to change password on next login</label
+        >
       </div>
 
       <div class="flex flex-col gap-1">
