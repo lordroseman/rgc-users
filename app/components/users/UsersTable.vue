@@ -227,6 +227,11 @@ defineExpose({
           <span v-else>No users found</span>
         </div>
       </template>
+      <Column field="id" header="Passport ID" sortable style="min-width: 12rem">
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
       <Column field="id_num" header="Employee ID #" sortable style="min-width: 12rem">
         <template v-if="loading" #body>
           <Skeleton />
@@ -260,6 +265,30 @@ defineExpose({
           <Skeleton v-if="loading" />
           <div v-else class="flex flex-wrap gap-1">
             <RolePill v-for="role in data.roles" :key="role" :role="role" />
+          </div>
+        </template>
+
+        <template #filter="{ filterModel }">
+          <InputText
+            v-model="filterModel.value"
+            type="text"
+            placeholder="Search by role"
+          />
+        </template>
+      </Column>
+
+      <Column
+        field="status"
+        header="Status"
+        :sortable="false"
+        show-filter-menu
+        :show-filter-match-modes="false"
+        style="min-width: 12rem"
+      >
+        <template #body="{ data }">
+          <Skeleton v-if="loading" />
+          <div v-else class="flex flex-wrap gap-1">
+            <StatusPill :status="data.status" />
           </div>
         </template>
 

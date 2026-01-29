@@ -24,6 +24,7 @@ export const UserSchema = z.object({
     roles: z.array(z.string()).min(1, "At least one role is required"),
     // allow password to be optional / null for updates
     password: z.string().nullable().optional(),
+    status: z.enum(["ACTIVE", "INACTIVE", "FORCE_CHANGE_PASSWORD"]).optional(),
 }) 
 
 export type User = z.infer<typeof UserSchema>;
