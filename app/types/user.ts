@@ -25,6 +25,8 @@ export const UserSchema = z.object({
     // allow password to be optional / null for updates
     password: z.string().nullable().optional(),
     status: z.enum(["ACTIVE", "INACTIVE", "FORCE_CHANGE_PASSWORD"]).optional(),
+    google_id: z.string().nullable().optional(),
+    google_email: z.string().email().or(z.literal('')).optional(),
 }) 
 
 export type User = z.infer<typeof UserSchema>;
