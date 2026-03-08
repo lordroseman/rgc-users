@@ -254,6 +254,16 @@ defineExpose({
         </template>
       </Column>
       <Column
+        field="google_email"
+        header="Google Email"
+        sortable
+        style="min-width: 12rem"
+      >
+        <template v-if="loading" #body>
+          <Skeleton />
+        </template>
+      </Column>
+      <Column
         field="roles"
         header="Role"
         :sortable="false"
@@ -296,7 +306,7 @@ defineExpose({
           <InputText
             v-model="filterModel.value"
             type="text"
-            placeholder="Search by role"
+            placeholder="Search by status"
           />
         </template>
       </Column>
