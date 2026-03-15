@@ -17,7 +17,7 @@
     "@pinia/nuxt": "^0.11.1",
     "@primeuix/themes": "^1.1.1",
     "@primevue/forms": "^4.3.5",
-    "@primevue/nuxt-module": "^4.3.9",
+    "@primevue/nuxt-module": "^4.5.4",
     "@tailwindcss/vite": "^4.1.8",
     "@vueuse/core": "^13.6.0",
     "dotenv": "^17.2.2",
