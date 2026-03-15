@@ -34,7 +34,7 @@
   "devDependencies": {
     "@iconify-json/ic": "^1.2.2",
     "@nuxt/eslint-config": "^1.15.2",
-    "@types/node": "^24.3.3",
+    "@types/node": "^25.5.0",
     "@types/qs": "^6.14.0",
     "eslint": "^10.0.3",
     "typescript": "^5.9.3",
