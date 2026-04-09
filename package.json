@@ -13,16 +13,16 @@
   },
   "dependencies": {
     "@nuxt/eslint": "^1.4.1",
-    "@nuxt/icon": "^1.13.0",
+    "@nuxt/icon": "^2.2.1",
     "@pinia/nuxt": "^0.11.1",
-    "@primeuix/themes": "^1.1.1",
+    "@primeuix/themes": "^2.0.3",
     "@primevue/forms": "^4.3.5",
-    "@primevue/nuxt-module": "^4.3.9",
+    "@primevue/nuxt-module": "^4.5.4",
     "@tailwindcss/vite": "^4.1.8",
     "@vueuse/core": "^13.6.0",
-    "dotenv": "^17.2.2",
-    "nuxt": "^4.1.1",
-    "pinia": "^3.0.3",
+    "dotenv": "^17.3.1",
+    "nuxt": "^4.4.2",
+    "pinia": "^3.0.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.3.5",
     "qs": "^6.14.0",
@@ -33,11 +33,11 @@
   },
   "devDependencies": {
     "@iconify-json/ic": "^1.2.2",
-    "@nuxt/eslint-config": "^1.4.1",
-    "@types/node": "^24.3.3",
+    "@nuxt/eslint-config": "^1.15.2",
+    "@types/node": "^25.5.0",
     "@types/qs": "^6.14.0",
-    "eslint": "^9.28.0",
-    "typescript": "^5.8.3",
+    "eslint": "^10.0.3",
+    "typescript": "^5.9.3",
     "vue-tsc": "^2.2.10"
   }
 }
