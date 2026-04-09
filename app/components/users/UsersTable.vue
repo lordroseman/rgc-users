@@ -13,8 +13,12 @@ import { useDebounceFn } from "@vueuse/core";
 const userStore = useUserStore();
 const { users, loading, pagination } = storeToRefs(userStore);
 
+const roleStore = useRoleStore();
+const { roles } = storeToRefs(roleStore);
+
 onMounted(() => {
   loadUsers();
+  roleStore.fetchRoles();
 });
 
 // Filters (client-side like EmployeesTable UI)
@@ -23,6 +27,7 @@ type UserFilters = {
   id_num: DataTableFilterMetaData;
   name: DataTableFilterMetaData;
   roles: DataTableFilterMetaData;
+  status: DataTableFilterMetaData;
 };
 
 const filters = ref<UserFilters>({
@@ -30,6 +35,7 @@ const filters = ref<UserFilters>({
   id_num: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   name: { value: null, matchMode: FilterMatchMode.CONTAINS },
   roles: { value: null, matchMode: FilterMatchMode.EQUALS },
+  status: { value: null, matchMode: FilterMatchMode.EQUALS },
 });
 
 const emit = defineEmits(["openModal", "delete"]);
@@ -45,13 +51,15 @@ const params = ref<PaginationRequestParam>({
 
 const hasFilters = computed(() => {
   const f = filters.value;
-  return !!f.name.value;
+  return !!f.name.value || !!f.roles.value || !!f.status.value;
 });
 
 const clearFilters = () => {
   filters.value.q.value = null;
   filters.value.name.value = null;
   filters.value.id_num.value = null;
+  filters.value.roles.value = null;
+  filters.value.status.value = null;
 };
 
 watch(
@@ -142,7 +150,6 @@ const onSort = async (event: DataTableSortEvent) => {
 
 const onFilter = async (event: DataTableFilterEvent) => {
   const eFilters = event.filters as UserFilters;
-  console.log(event);
   for (const k in eFilters) {
     const key = k as keyof UserFilters;
 
@@ -159,6 +166,12 @@ const onFilter = async (event: DataTableFilterEvent) => {
 
   await loadUsers();
 };
+
+const statusOptions = [
+  { label: "Active", value: "ACTIVE" },
+  { label: "Inactive", value: "INACTIVE" },
+  { label: "Force Change Password", value: "FORCE_CHANGE_PASSWORD" },
+];
 
 const loadUsers = useDebounceFn(async () => {
   loading.value = true;
@@ -279,10 +292,13 @@ defineExpose({
         </template>
 
         <template #filter="{ filterModel }">
-          <InputText
+          <Select
             v-model="filterModel.value"
-            type="text"
-            placeholder="Search by role"
+            :options="roles"
+            option-label="name"
+            option-value="name"
+            placeholder="Filter by role"
+            show-clear
           />
         </template>
       </Column>
@@ -303,10 +319,13 @@ defineExpose({
         </template>
 
         <template #filter="{ filterModel }">
-          <InputText
+          <Select
             v-model="filterModel.value"
-            type="text"
-            placeholder="Search by status"
+            :options="statusOptions"
+            option-label="label"
+            option-value="value"
+            placeholder="Filter by status"
+            show-clear
           />
         </template>
       </Column>
